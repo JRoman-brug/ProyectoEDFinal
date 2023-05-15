@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EmptyBorder;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 
 @SuppressWarnings("serial")
@@ -47,29 +48,30 @@ public class PedirNotaFiltrar extends JDialog {
 		}
 		
 		JLabel lblFiltrarNota = new JLabel("Ingrese nota");
-		lblFiltrarNota.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		lblFiltrarNota.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(50)
-					.addComponent(lblLu)
-					.addGap(29)
+					.addGap(33)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(textFieldNota, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblFiltrarNota))
-					.addContainerGap(99, Short.MAX_VALUE))
+						.addComponent(lblFiltrarNota)
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(lblLu)
+							.addGap(37)
+							.addComponent(textFieldNota, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(118, Short.MAX_VALUE))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(35)
+					.addGap(63)
 					.addComponent(lblFiltrarNota, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-					.addGap(34)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblLu)
 						.addComponent(textFieldNota, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(79, Short.MAX_VALUE))
+					.addContainerGap(77, Short.MAX_VALUE))
 		);
 		contentPanel.setLayout(gl_contentPanel);
 		{

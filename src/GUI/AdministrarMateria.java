@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
-import Logic.Main;
+import Program.Main;
 
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -53,7 +53,7 @@ public class AdministrarMateria extends JPanel {
 	
 	private JLabel lblPhoto = new JLabel("");
 	private JLabel lblPromedio = new JLabel("El promedio general es: 0");
-	private JLabel lblNotaMinima = new JLabel("La nota minima es: 0");
+	private JLabel lblNotaMinima = new JLabel("La nota mínima es: 0");
 	private JLabel lblMateria = new JLabel("");
 	private JLabel lblFecha = new JLabel("");
 	
@@ -211,8 +211,9 @@ public class AdministrarMateria extends JPanel {
 		//Setup del modelo de la tabla
 		modelo = logica.tablaOriginal();
 		table_1.setModel(modelo);
-
-
+		table_1.getTableHeader().setReorderingAllowed(false);
+		table_1.getTableHeader().setResizingAllowed(false);
+			
 		scrollPane.setViewportView(table_1);
 
 		scrollPane.setBounds(10, 38, 414, 212);
@@ -318,12 +319,12 @@ public class AdministrarMateria extends JPanel {
 
 	//Llamar a ventanas emergentes
 	private void llamarVentanaAgregarAlumno() {
-		AgregarAlumno agregarAlumno = new AgregarAlumno(ventana,this,true);
+		AgregarAlumno agregarAlumno = new AgregarAlumno(ventana,this,logica,true);
 		agregarAlumno.setVisible(true);
 	}
 
 	private void llamarVentanaEliminarAlumno() {
-		EliminarAlumno eliminarAlumno = new EliminarAlumno(ventana,this,true);
+		EliminarAlumno eliminarAlumno = new EliminarAlumno(ventana,this,logica,true);
 		eliminarAlumno.setVisible(true);
 	}
 
@@ -339,27 +340,6 @@ public class AdministrarMateria extends JPanel {
 	//Llamar a metodos del main
 	
 	/**
-	 * Agrega un registro con los datos de JPanel
-	 * @param lu del alumno
-	 * @param nota nota del alumno
-	 */
-	public void AgregarAlumnos(int lu, int nota){
-		//Aca se deberia agregar llamar al main y llamar al metodo agregar
-		logica.agregarAlumno(lu, nota);
-		actualizarTabla();
-		actualizarPromedioNotaMinima();
-	}
-	/**
-	 * Si el lu coinciden con algun registro se eliminar y actualiza la tabla, promedio y nota minima
-	 * @param lu del alumno el cual se quiere eliminar
-	 */
-	public void EliminarAlumnos(int lu) {
-		logica.eliminarRegistro(lu);
-		actualizarTabla();
-		actualizarPromedioNotaMinima();
-	}
-
-	/**
 	 * Borra y actualiza la tabla en caso de agregar o eliminar
 	 * @param la lista que se mostrara en la tabla
 	 */
@@ -370,11 +350,15 @@ public class AdministrarMateria extends JPanel {
 	private void actualizarPromedioNotaMinima() {
 		if(!logica.registroIsEmpty()) {
 			lblPromedio.setText("El promedio general es: "+logica.calcularPromedio());
-			lblNotaMinima.setText("La nota minima es: "+logica.notaMinima());
+			lblNotaMinima.setText("La nota mínima es: "+logica.notaMinima());
 		}else {
 			lblPromedio.setText("El promedio general es: "+0);
 			lblNotaMinima.setText("La nota minima es: "+0);
 		}
+	}
+	public void actualizarDatos() {
+		actualizarTabla();
+		actualizarPromedioNotaMinima();
 	}
 	/**
 	 * Filtra la tabla por aprobados

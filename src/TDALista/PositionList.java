@@ -2,7 +2,9 @@ package TDALista;
 
 import java.util.Iterator;
 
-import Exceptions_Entry_Entrada.*;
+import Exceptions.BoundaryViolationException;
+import Exceptions.EmptyListException;
+import Exceptions.InvalidPositionException;
 
 /**
  * Interface PositionList

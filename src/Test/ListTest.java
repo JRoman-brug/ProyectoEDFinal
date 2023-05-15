@@ -9,7 +9,7 @@ import java.util.Iterator;
 import TDALista.*;
 import org.junit.*;
 
-import Exceptions_Entry_Entrada.*;
+import Exceptions.*;
 
 public class ListTest {
 	private PositionList<String> l; // interface

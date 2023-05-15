@@ -10,7 +10,8 @@ import java.util.Vector;
 
 import org.junit.Test;
 
-import Exceptions_Entry_Entrada.*;
+import Entry_Entrada.*;
+import Exceptions.*;
 import TDADiccionario.DiccionarioHash;
 import TDADiccionario.Dictionary;
 

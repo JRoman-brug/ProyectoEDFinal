@@ -5,11 +5,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-import Logic.Main;
+import Program.Main;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -101,6 +104,7 @@ public class IngresarMateria extends JPanel {
 
 
 		btnIngresar.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnIngresar.setEnabled(false);
 		ventana.getRootPane().setDefaultButton(btnIngresar);
 
 		GridBagConstraints gbc_btnIngresar = new GridBagConstraints();
@@ -120,6 +124,26 @@ public class IngresarMateria extends JPanel {
 		photo.setBounds(0, 0, 0, 0);
 		panelPhoto.add(photo);
 
+		textFieldMateria.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				if(textFieldMateria.getText().length()>0) btnIngresar.setEnabled(true);
+				else btnIngresar.setEnabled(false);
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				if(textFieldMateria.getText().length()>0) btnIngresar.setEnabled(true);
+				else btnIngresar.setEnabled(false);
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				if(textFieldMateria.getText().length()>0) btnIngresar.setEnabled(true);
+				else btnIngresar.setEnabled(false);
+			}
+			
+		});
 
 		//Listeners
 		btnIngresar.addActionListener(new ActionListener() {

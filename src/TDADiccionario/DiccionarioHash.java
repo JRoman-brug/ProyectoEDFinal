@@ -1,7 +1,9 @@
 package TDADiccionario;
 
 import java.util.Iterator;
-import Exceptions_Entry_Entrada.*;
+
+import Entry_Entrada.*;
+import Exceptions.*;
 import TDALista.*;
 
 public class DiccionarioHash<K,V> implements Dictionary<K,V> {

@@ -9,7 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Logic.Main;
+import Program.Main;
+import Program.Par;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,6 +20,7 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 @SuppressWarnings("serial")
 public class ObtenerAlumno extends JDialog {
@@ -38,6 +40,7 @@ public class ObtenerAlumno extends JDialog {
 	 * Create the dialog.
 	 */
 	public ObtenerAlumno(JFrame ventana,Main l, boolean modal) {
+		super(ventana,modal);
 		logica = l;
 		
 		setBounds(100, 100, 450, 300);
@@ -54,29 +57,30 @@ public class ObtenerAlumno extends JDialog {
 		}
 		
 		JLabel lblNewLabel = new JLabel("Consultar nota");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(50)
-					.addComponent(lblLu)
-					.addGap(29)
+					.addGap(34)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(textFieldLu, GroupLayout.PREFERRED_SIZE, 203, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel))
-					.addContainerGap(99, Short.MAX_VALUE))
+						.addComponent(lblNewLabel)
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addComponent(lblLu)
+							.addGap(18)
+							.addComponent(textFieldLu, GroupLayout.PREFERRED_SIZE, 244, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(109, Short.MAX_VALUE))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(35)
-					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-					.addGap(34)
+				.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
+					.addGap(51)
+					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblLu)
 						.addComponent(textFieldLu, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(79, Short.MAX_VALUE))
+					.addGap(77))
 		);
 		contentPanel.setLayout(gl_contentPanel);
 		{
@@ -108,14 +112,14 @@ public class ObtenerAlumno extends JDialog {
 	}
 	
 	public void aceptar() {
-
+		//Mensaje
 		JOptionPane mensaje = new JOptionPane();
 		if(textFieldLu.getText().length()>0) {
 			try {
 				int lu = Integer.parseInt(textFieldLu.getText());
-				
-				if(logica.obtenerAlumno(lu) != null){
-					JOptionPane.showMessageDialog(mensaje,"La nota de: "+textFieldLu.getText()+" es: "+logica.obtenerAlumno(lu).getNota());
+				Par alumno = logica.obtenerAlumno(lu);
+				if(alumno != null){
+					JOptionPane.showMessageDialog(mensaje,"La nota de: "+textFieldLu.getText()+" es: "+alumno.getNota());
 				}else {
 					JOptionPane.showMessageDialog(mensaje,"No hay alumno registrado con ese LU");
 				}
