@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EmptyBorder;
 
+import Program.Main;
+
 @SuppressWarnings("serial")
 public class EliminarAlumno extends JDialog {
 
@@ -24,6 +26,7 @@ public class EliminarAlumno extends JDialog {
 	private JTextField textField;
 	private JLabel lblNewLabel_1;
 	private AdministrarMateria adminMateria;
+	private Main logica;
 	
 	/**
 	 * Launch the application.
@@ -34,9 +37,10 @@ public class EliminarAlumno extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EliminarAlumno(JFrame ventana,AdministrarMateria adminM, boolean modal) {
-		
+	public EliminarAlumno(JFrame ventana,AdministrarMateria adminM, Main l, boolean modal) {
 		super(ventana,modal);
+		logica = l;
+		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -64,20 +68,20 @@ public class EliminarAlumno extends JDialog {
 						.addComponent(lblNewLabel_2)
 						.addGroup(gl_contentPanel.createSequentialGroup()
 							.addComponent(lblNewLabel_1)
-							.addGap(61)
+							.addGap(42)
 							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 242, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(70, Short.MAX_VALUE))
+					.addContainerGap(89, Short.MAX_VALUE))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(58)
+					.addGap(75)
 					.addComponent(lblNewLabel_2)
-					.addGap(35)
+					.addGap(18)
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_1)
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(59, Short.MAX_VALUE))
+					.addContainerGap(74, Short.MAX_VALUE))
 		);
 		contentPanel.setLayout(gl_contentPanel);{
 			JPanel buttonPane = new JPanel();
@@ -108,16 +112,26 @@ public class EliminarAlumno extends JDialog {
 		}
 	}
 	public void aceptar() {
+		//Mensaje 
 		JOptionPane mensaje = new JOptionPane();
+		//verifico que el textfield tenga contenido
 		if(textField.getText().length()>0) {
 			try {
 				int lu = Integer.parseInt(textField.getText());
-				adminMateria.EliminarAlumnos(lu);
-				dispose();
+				if(logica.eliminarRegistro(lu)) {
+					//Si existe el alumno
+					adminMateria.actualizarDatos();
+					dispose();
+				}else {
+					//si no existe el alumno
+					JOptionPane.showMessageDialog(mensaje,"No hay alumno registrado con ese LU");
+				}
 			}catch(NumberFormatException e) {
+				//Si ingresa un string
 				JOptionPane.showMessageDialog(mensaje,"Ingrese un dato valido");
 			}
 		}else {
+			//popup si el textfield esta vacio
 			JOptionPane.showMessageDialog(mensaje,"Complete los campos");
 		}
 	}

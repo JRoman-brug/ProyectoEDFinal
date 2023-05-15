@@ -5,7 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import Exceptions_Entry_Entrada.*;
+import Entry_Entrada.*;
+import Exceptions.*;
 import TDAColaCP.ComparadorNota;
 import TDAColaCP.*;
 

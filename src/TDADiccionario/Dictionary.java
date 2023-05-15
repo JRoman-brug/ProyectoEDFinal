@@ -1,6 +1,7 @@
 package TDADiccionario;
 
-import Exceptions_Entry_Entrada.*;
+import Entry_Entrada.Entry;
+import Exceptions.*;
 
 public interface Dictionary<K,V>
 {

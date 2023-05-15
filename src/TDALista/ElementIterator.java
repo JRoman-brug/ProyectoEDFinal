@@ -1,7 +1,8 @@
 package TDALista;
 
 import java.util.*;
-import Exceptions_Entry_Entrada.*;
+
+import Exceptions.*;
 
 public class ElementIterator<E> implements Iterator<E> {
 

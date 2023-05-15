@@ -2,7 +2,8 @@ package TDAColaCP;
 
 import java.util.Comparator;
 
-import Exceptions_Entry_Entrada.*;
+import Entry_Entrada.*;
+import Exceptions.*;
 
 public class Heap<K,V> implements PriorityQueue<K,V> {
     protected Entrada<K,V> [] elems;

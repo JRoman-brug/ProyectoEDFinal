@@ -1,7 +1,8 @@
 package TDALista;
 
 import java.util.Iterator;
-import Exceptions_Entry_Entrada.*;
+
+import Exceptions.*;
 
 public class ListaDoblementeEnlazada<E> implements PositionList<E> {
     protected Nodo<E> header;

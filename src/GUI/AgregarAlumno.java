@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Program.Main;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -27,6 +29,7 @@ public class AgregarAlumno extends JDialog {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel;
 	private AdministrarMateria adminMateria;
+	private Main logica;
 
 	/**
 	 * Launch the application.
@@ -37,8 +40,9 @@ public class AgregarAlumno extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public AgregarAlumno(JFrame ventana,AdministrarMateria adminM, boolean modal) {
+	public AgregarAlumno(JFrame ventana,AdministrarMateria adminM, Main l, boolean modal) {
 		super(ventana,modal);
+		logica = l;
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -128,17 +132,33 @@ public class AgregarAlumno extends JDialog {
 	}
 
 	public void aceptar() {
+		//Creo el mensaje
 		JOptionPane mensaje = new JOptionPane();
+		//verifico que los textfields no esten vacios
 		if(textField.getText().length()>0 && textField_1.getText().length()>0) {
 			try {
 				int lu = Integer.parseInt(textField.getText());
 				int nota = Integer.parseInt(textField_1.getText());
-				adminMateria.AgregarAlumnos(lu,nota);
-				dispose();
+				//Verifico que la nota este en el rango 1-10
+				if(nota <=10 && nota >= 1) {
+					if(logica.agregarAlumno(lu, nota)) {
+						adminMateria.actualizarDatos();
+						dispose();
+					}else {
+						//mensaje que el alumno no existe
+						JOptionPane.showMessageDialog(mensaje,"No hay alumno registrado con ese LU");
+					}
+				}else {
+					//Mensaje que ingrese una nota entre 1 y 10
+					JOptionPane.showMessageDialog(mensaje,"Ingrese una nota entre 1 y 10");
+				}
+				
 			}catch(NumberFormatException e) {
+				//Mensaje que en el caso que ingreso un string
 				JOptionPane.showMessageDialog(mensaje,"Ingrese un dato valido");
 			}
 		}else {
+			//Mensaje que los textFields esten vacíos
 			JOptionPane.showMessageDialog(mensaje,"Complete los campos");
 		}
 	}

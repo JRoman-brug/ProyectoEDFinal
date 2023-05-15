@@ -1,6 +1,7 @@
 package TDAColaCP;
 
-import Exceptions_Entry_Entrada.*;
+import Entry_Entrada.*;
+import Exceptions.*;
 
 /**
  * Interface PriorityQueue

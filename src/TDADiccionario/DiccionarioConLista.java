@@ -2,7 +2,8 @@ package TDADiccionario;
 
 import java.util.Iterator;
 
-import Exceptions_Entry_Entrada.*;
+import Entry_Entrada.*;
+import Exceptions.*;
 import TDALista.*;
 
 /**
