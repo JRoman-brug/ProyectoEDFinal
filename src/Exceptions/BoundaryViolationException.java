@@ -1,5 +1,6 @@
 package Exceptions;
 
+@SuppressWarnings("serial")
 public class BoundaryViolationException extends Exception {
 	/**
 	 * crea la excepcion con un mensaje asociado.
