@@ -24,19 +24,23 @@ public class Main {
 	}
 
 	/**
-	 * Crea un Par y lo agrega a la lista de alumnos,
-	 * si la nota esta en entre 0 y 10 verifica que no halla otro alumno con el mismo lu,
-	 * de lo contrario no agrega nada
+	 * Si la nota esta en entre 0 y 10 verifica que no halla otro alumno con el mismo lu,
+	 * crea un Par y lo agrega a la lista de alumnos, de lo contrario no agrega ningún alumno.
+	 * Retorna true si agrego un alumno, de lo contrario retorna false
 	 * @param lu
 	 * @param nota
+	 * @return true si agrego alumno, false si no agrego alumno
 	 */
-	public void agregarAlumno(int lu,int nota){
+	public boolean agregarAlumno(int lu,int nota){
+		boolean flag = false;
 		if(nota>=0 && nota<=10) {
-			if(!this.verificarAlumno(lu)) {
+			if(!verificarAlumno(lu)) {
 				Par alumnoNuevo = new Par(lu,nota);
 				listaAlumnos.addFirst(alumnoNuevo);
+				flag  = true;
 			}
 		}
+		return flag;
 	}
 	/**
 	 * Retorna el nombre de la materia
@@ -47,7 +51,7 @@ public class Main {
 	}
 	
 	/**
-	 * Verifica si el registro esta vacio
+	 * Verifica si el registró esta vacío
 	 * @return si la lista vacia
 	 */
 	public boolean registroIsEmpty() {
@@ -110,8 +114,8 @@ public class Main {
 	}
 
 	/**
-	 * Recorre la lista de alumnos si coincide materia con lu lo elimina y tira true
-	 * sino tira false
+	 * Recorre la lista de alumnos si coincide materia con lu lo elimina y retorna true
+	 * sino retorna false
 	 * @param lu
 	 * @param materia
 	 */
@@ -136,7 +140,7 @@ public class Main {
 	}
 
 	/**
-	 * Si existe alumno retorna true sino false (si es falso la gui lo crea) 
+	 * Si existe alumno retorna true sino false, si es falso la gui lo crea
 	 * @param lu
 	 */
 	private boolean verificarAlumno(int lu) {
@@ -182,9 +186,9 @@ public class Main {
 	}
 
 	/**
-	 * Utiliza una cola con prioridad para ordenar los datos y buscar la minima nota,
-	 * si lista alumnos esta vacia retorna -1
-	 * @return nota mina 
+	 * Utiliza una cola con prioridad para ordenar los datos y buscar la mínima nota,
+	 * si lista alumnos esta vacía retorna -1
+	 * @return nota mínina 
 	 */
 	public int notaMinima() {
 		int toRet = -1;
@@ -210,11 +214,10 @@ public class Main {
 
 	/**
 	 * Ordena a todos los alumnos en una lista ordenada de mayor a menor,
-	 * si la lista de alumnos esta vacia retorna null
+	 * si la lista de alumnos esta vacía retorna un lista vacía
 	 * @return PositionList<Integer>
 	 */
 	private PositionList<Par> ordenarMayorMenor(){
-		//usa una CCP
 		PositionList<Par> toRet = new ListaDoblementeEnlazada<Par>();
 		int sizeColaCP = 0;
 		if(!listaAlumnos.isEmpty()) {
@@ -243,13 +246,11 @@ public class Main {
 
 	/**
 	 * Busca y agrega a una lista a todos los alumnos con nota 'n',
-	 * si la lisa de alumnos esta vacia retorna null
+	 * si no hay alumnos con nota 'n' retorna una lita vacía
 	 * @param nota
 	 * @return PositionList<Integer>
 	 */
 	private PositionList<Par> buscarPorNota(int n){
-		//usa un diccionario
-		// de la listaAlumnos pasa a un diccionario y de ahi pasa el iterable correspondiente
 		PositionList<Par> toRet = new ListaDoblementeEnlazada<Par>();
 		if(!listaAlumnos.isEmpty()) {
 			Dictionary<Integer,Integer> dic = new DiccionarioHash<Integer,Integer>();
@@ -275,7 +276,7 @@ public class Main {
 
 	//Metodos para la tabla 
 	/**
-	 * Crea el modelo de una tabla con los elementos de la lista que se pasa por parametros
+	 * Crea el modelo de una tabla con los elementos de la lista que se pasa por parámetros
 	 * @param lista que se quiera imprimir en la tabla 
 	 * @return modelo de tabla con los datos de lista
 	 */
@@ -317,7 +318,7 @@ public class Main {
 		return actualizarTabla(ordenarMayorMenor());
 	}
 	/**
-	 * Retorna un modelo de tabla con todo los alumnos con la nota que se pasa por parametro
+	 * Retorna un modelo de tabla con todo los alumnos con la nota que se pasa por parámetro
 	 * @param nota que se quiera filtrar
 	 * @return modelo con todos los alumnos con cierta nota
 	 */
