@@ -195,7 +195,7 @@ public class AdministrarMateria extends JPanel {
 		btnOrdenarNota.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		
 		panelBotonesInferior.add(btnOrdenarNota);
-
+		
 		//Datos
 		GridBagConstraints gbc_panelTabla = new GridBagConstraints();
 		gbc_panelTabla.insets = new Insets(0, 20, 5, 0);
@@ -348,14 +348,9 @@ public class AdministrarMateria extends JPanel {
 		table_1.setModel(logica.tablaOriginal());
 	}
 	private void actualizarPromedioNotaMinima() {
-		if(!logica.registroIsEmpty()) {
-			lblPromedio.setText("El promedio general es: "+logica.calcularPromedio());
-			lblNotaMinima.setText("La nota mínima es: "+logica.notaMinima());
-		}else {
-			lblPromedio.setText("El promedio general es: "+0);
-			lblNotaMinima.setText("La nota minima es: "+0);
-		}
-	}
+		lblPromedio.setText("El promedio general es: "+logica.calcularPromedio());
+		lblNotaMinima.setText("La nota mínima es: "+logica.notaMinima());
+			}
 	public void actualizarDatos() {
 		actualizarTabla();
 		actualizarPromedioNotaMinima();
