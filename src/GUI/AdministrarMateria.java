@@ -348,13 +348,8 @@ public class AdministrarMateria extends JPanel {
 		table_1.setModel(logica.tablaOriginal());
 	}
 	private void actualizarPromedioNotaMinima() {
-		if(!logica.registroIsEmpty()) {
-			lblPromedio.setText("El promedio general es: "+logica.calcularPromedio());
-			lblNotaMinima.setText("La nota mínima es: "+logica.notaMinima());
-		}else {
-			lblPromedio.setText("El promedio general es: "+0);
-			lblNotaMinima.setText("La nota minima es: "+0);
-		}
+		lblPromedio.setText("El promedio general es: "+logica.calcularPromedio());
+		lblNotaMinima.setText("La nota mínima es: "+logica.notaMinima());
 	}
 	public void actualizarDatos() {
 		actualizarTabla();

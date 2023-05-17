@@ -104,11 +104,9 @@ public class Main {
 	 * @return promedio de la materia
 	 */
 	public double calcularPromedio() {
-		double prom=0;
-		if(!listaAlumnos.isEmpty()) {
-			for(Par alumno : listaAlumnos) {
-				prom = prom + alumno.getNota();
-			}
+		double prom = 0;
+		for(Par alumno : listaAlumnos) {
+			prom = prom + alumno.getNota();
 		}
 		return Math.round(prom/listaAlumnos.size()*100)/100d;
 	}
@@ -131,7 +129,7 @@ public class Main {
 					try {
 						listaAlumnos.remove(p);
 					} catch (InvalidPositionException e) {
-						System.out.println(e.getMessage());
+						e.printStackTrace();
 					}
 				}
 			}
@@ -160,7 +158,7 @@ public class Main {
 	 * si la lisa de alumnos esta vacia retorna null
 	 * @return PositionList<Integer> de Lu's
 	 */
-	private PositionList<Par> alumnosAprobados(){
+	private PositionList<Par> alumnosAprobados() {
 		PositionList<Par> alumnosAprobados = new ListaDoblementeEnlazada<Par>();
 		if(!listaAlumnos.isEmpty()) {
 			for(Par alumno : listaAlumnos) {
@@ -187,26 +185,24 @@ public class Main {
 
 	/**
 	 * Utiliza una cola con prioridad para ordenar los datos y buscar la mínima nota,
-	 * si lista alumnos esta vacía retorna -1
+	 * si lista alumnos esta vacía retorna 0
 	 * @return nota mínina 
 	 */
 	public int notaMinima() {
-		int toRet = -1;
+		int toRet = 0;
 		PriorityQueue<Integer,Integer> cola = new Heap<Integer,Integer>(listaAlumnos.size(), new ComparadorNota<Integer>());
 		if(!listaAlumnos.isEmpty()) {
-			if(!listaAlumnos.isEmpty()) {
-				for (Par alumno : listaAlumnos) {
-					try {
-						cola.insert(alumno.getNota(),alumno.getLu());
-					} catch (InvalidKeyException e) {
-						e.printStackTrace();
-					}
-				}
+			for (Par alumno : listaAlumnos) {
 				try {
-					toRet = cola.min().getKey();
-				} catch (EmptyPriorityQueueException e) {
+					cola.insert(alumno.getNota(),alumno.getLu());
+				} catch (InvalidKeyException e) {
 					e.printStackTrace();
 				}
+			}
+			try {
+				toRet = cola.min().getKey();
+			} catch (EmptyPriorityQueueException e) {
+				e.printStackTrace();
 			}
 		}
 		return toRet;
@@ -219,9 +215,9 @@ public class Main {
 	 */
 	private PositionList<Par> ordenarMayorMenor(){
 		PositionList<Par> toRet = new ListaDoblementeEnlazada<Par>();
-		int sizeColaCP = 0;
 		if(!listaAlumnos.isEmpty()) {
-			PriorityQueue<Integer,Integer> colaCP = new Heap<Integer,Integer>(listaAlumnos.size(), new ComparadorNota<Integer>());
+			int sizeListaAlumnos = listaAlumnos.size();
+			PriorityQueue<Integer,Integer> colaCP = new Heap<Integer,Integer>(sizeListaAlumnos, new ComparadorNota<Integer>());
 			for (Par alumno : listaAlumnos) {
 				try {
 					colaCP.insert(alumno.getNota(),alumno.getLu());
@@ -229,8 +225,7 @@ public class Main {
 					e.printStackTrace();
 				}
 			}
-			sizeColaCP = colaCP.size();
-			for (int i=0;i<sizeColaCP;i++) {
+			for (int i=0;i<sizeListaAlumnos;i++) {
 				Entry<Integer, Integer> e;
 				try {
 					e = colaCP.removeMin();
