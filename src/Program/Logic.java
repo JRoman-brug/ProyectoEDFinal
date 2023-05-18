@@ -10,15 +10,16 @@ import TDAColaCP.*;
 import TDADiccionario.*;
 import TDALista.*;
 
-public class Main {
+public class Logic {
 	private String nomMateria;
 	private PositionList<Par> listaAlumnos;
 
 	/**
-	 * 
+	 * Inicializa los atributos de un objeto Main asignando el nombre de la materia y 
+	 * creando una lista de alumnos vacia.
 	 * @param Nombre de la materia 
 	 */
-	public Main(String materia) {
+	public Logic(String materia) {
 		nomMateria = materia;
 		listaAlumnos = new ListaDoblementeEnlazada<Par>();
 	}
@@ -26,10 +27,9 @@ public class Main {
 	/**
 	 * Si la nota esta en entre 0 y 10 verifica que no halla otro alumno con el mismo lu,
 	 * crea un Par y lo agrega a la lista de alumnos, de lo contrario no agrega ningún alumno.
-	 * Retorna true si agrego un alumno, de lo contrario retorna false
 	 * @param lu
 	 * @param nota
-	 * @return true si agrego alumno, false si no agrego alumno
+	 * @return true si agregó un alumno, false si no agregó ningún alumno
 	 */
 	public boolean agregarAlumno(int lu,int nota){
 		boolean flag = false;
@@ -37,30 +37,37 @@ public class Main {
 			if(!verificarAlumno(lu)) {
 				Par alumnoNuevo = new Par(lu,nota);
 				listaAlumnos.addFirst(alumnoNuevo);
-				flag  = true;
+				flag = true;
 			}
 		}
 		return flag;
 	}
 	/**
-	 * Retorna el nombre de la materia
+	 * Retorna el nombre de la materia.
 	 * @return nombre de la materia
 	 */
 	public String getMateria() {
 		return nomMateria;
 	}
+	
+	/**
+	 * Verifica si el registro esta vacío.
+	 * @return si la lista vacia
+	 */
+	public boolean registroIsEmpty() {
+		return listaAlumnos.isEmpty();
+	}
 	/**
 	 * Retorna un alumno mediante su lu,
-	 * si no lo encuentra retorna null
-	 * @param lu del alumno
+	 * si no lo encuentra retorna null.
+	 * @param lu
+	 * @return Par null o existente
 	 */
 	public Par obtenerAlumno(int lu) {
 		Par toReturn = null;
 		if(!listaAlumnos.isEmpty()) {
 			Iterator<Par> it = listaAlumnos.iterator();
 			Par aux;
-			//Recorro la lista 
-
 			while(it.hasNext() && toReturn == null) {
 				aux = it.next();
 				if(aux.getLu() == lu) toReturn = aux;
@@ -68,31 +75,9 @@ public class Main {
 		}
 		return toReturn;
 	}
-
+	
 	/**
-	 * Si existe alumno retorna la nota del mismo sino retorna -1
-	 * @param lu
-	 * @return nota del alumno
-	 */
-	public int verNota(int lu) {
-		int toRet=-1;
-		if(!listaAlumnos.isEmpty()) {
-			Iterator<Par> it = listaAlumnos.iterator();
-			Par alumno = null;
-			boolean flag = false;
-			while(it.hasNext() && !flag) {
-				alumno = it.next();
-				if(alumno.getLu()==lu) {
-					flag = true;
-					toRet = alumno.getNota();
-				}
-			}
-		}
-		return toRet;
-	}
-
-	/**
-	 * Calcula el promedio de la materia
+	 * Calcula el promedio de la materia.
 	 * @return promedio de la materia
 	 */
 	public double calcularPromedio() {
@@ -104,10 +89,11 @@ public class Main {
 	}
 
 	/**
-	 * Recorre la lista de alumnos si coincide materia con lu lo elimina y retorna true
-	 * sino retorna false
+	 * Recorre la lista de alumnos, si encuentra un lu igual al del parametro 
+	 * elimina ese alumno y retorna true,
+	 * sino retorna false.
 	 * @param lu
-	 * @param materia
+	 * @return si se eliminó el alumno
 	 */
 	public boolean eliminarRegistro(int lu) {
 		boolean flag = false;
@@ -130,8 +116,9 @@ public class Main {
 	}
 
 	/**
-	 * Si existe alumno retorna true sino false, si es falso la gui lo crea
+	 * Si existe alumno retorna true de lo contrario false.
 	 * @param lu
+	 * @return si se verificó la existencia del alumno
 	 */
 	private boolean verificarAlumno(int lu) {
 		boolean flag = false;
@@ -147,8 +134,8 @@ public class Main {
 
 	/**
 	 * Busca y agrega a una lista a todos alumnos con notas mayores o igual a 6,
-	 * si la lisa de alumnos esta vacia retorna null
-	 * @return PositionList<Integer> de Lu's
+	 * si la lista de alumnos esta vacia retorna una lista vacia.
+	 * @return lista de Lu's
 	 */
 	private PositionList<Par> alumnosAprobados() {
 		PositionList<Par> alumnosAprobados = new ListaDoblementeEnlazada<Par>();
@@ -162,8 +149,8 @@ public class Main {
 
 	/**
 	 * Busca y agrega a una lista a todos los alumnos con notas menores a 6,
-	 * si la lisa de alumnos esta vacia retorna null
-	 * @return PositionList<Integer> de Lu's
+	 * si la lisa de alumnos esta vacia retorna una lista vacia.
+	 * @return lista de Lu's
 	 */
 	private PositionList<Par> alumnosDesaprobados(){
 		PositionList<Par> alumnosDesprobados = new ListaDoblementeEnlazada<Par>();
@@ -177,7 +164,7 @@ public class Main {
 
 	/**
 	 * Utiliza una cola con prioridad para ordenar los datos y buscar la mínima nota,
-	 * si lista alumnos esta vacía retorna 0
+	 * si lista alumnos esta vacía retorna 0.
 	 * @return nota mínina 
 	 */
 	public int notaMinima() {
@@ -201,8 +188,8 @@ public class Main {
 	}
 
 	/**
-	 * Ordena a todos los alumnos en una lista ordenada de mayor a menor,
-	 * si la lista de alumnos esta vacía retorna un lista vacía
+	 * Agrega a todos los alumnos a una lista ordenada de mayor a menor,
+	 * si la lista de alumnos esta vacía retorna un lista vacía.
 	 * @return PositionList<Integer>
 	 */
 	private PositionList<Par> ordenarMayorMenor(){
@@ -233,9 +220,9 @@ public class Main {
 
 	/**
 	 * Busca y agrega a una lista a todos los alumnos con nota 'n',
-	 * si no hay alumnos con nota 'n' retorna una lita vacía
+	 * si no hay alumnos con nota 'n' retorna una lita vacía.
 	 * @param nota
-	 * @return PositionList<Integer>
+	 * @return lista con alumnos con nota 'n'
 	 */
 	private PositionList<Par> buscarPorNota(int n){
 		PositionList<Par> toRet = new ListaDoblementeEnlazada<Par>();
@@ -247,7 +234,6 @@ public class Main {
 				} catch (InvalidKeyException e) {
 					e.printStackTrace();
 				}
-
 			}
 			try {
 				for(Entry<Integer, Integer> alumno : dic.findAll(n)) {
@@ -263,7 +249,7 @@ public class Main {
 
 	//Metodos para la tabla 
 	/**
-	 * Crea el modelo de una tabla con los elementos de la lista que se pasa por parámetros
+	 * Crea el modelo de una tabla con los elementos de la lista que se pasa por parámetro.
 	 * @param lista que se quiera imprimir en la tabla 
 	 * @return modelo de tabla con los datos de lista
 	 */
@@ -276,21 +262,21 @@ public class Main {
 		return modelo;
 	}
 	/**
-	 * Retorna un modelo de tabla con todos los datos de la lista
+	 * Retorna un modelo de tabla con todos los datos de la lista.
 	 * @return modelo con todos los alumnos
 	 */
 	public DefaultTableModel tablaOriginal() {
 		return actualizarTabla(listaAlumnos);
 	}
 	/**
-	 * Retorna un modelo de tabla con los alumnos aprobados
+	 * Retorna un modelo de tabla con los alumnos aprobados.
 	 * @return modelo con alumnos aprobados
 	 */
 	public DefaultTableModel tablaAprobados() {
 		return actualizarTabla(alumnosAprobados());
 	}
 	/**
-	 * Retorna un modelo de tabla con los alumnos desaprobados
+	 * Retorna un modelo de tabla con los alumnos desaprobados.
 	 * @return modelo con todos los alumnos desaprobados
 	 */
 	public DefaultTableModel tablaDesaprobados() {
@@ -298,14 +284,14 @@ public class Main {
 	}
 
 	/**
-	 * Retorna un modelo de tabla con todos los datos de la lista ordenadas
+	 * Retorna un modelo de tabla con todos los datos de la lista ordenadas.
 	 * @return modelo con todos los datos ordenados
 	 */
 	public DefaultTableModel tablaOrdenada() {
 		return actualizarTabla(ordenarMayorMenor());
 	}
 	/**
-	 * Retorna un modelo de tabla con todo los alumnos con la nota que se pasa por parámetro
+	 * Retorna un modelo de tabla con todo los alumnos con la nota que se pasa por parámetro.
 	 * @param nota que se quiera filtrar
 	 * @return modelo con todos los alumnos con cierta nota
 	 */
@@ -313,7 +299,7 @@ public class Main {
 		return actualizarTabla(buscarPorNota(nota));
 	}
 	/**
-	 * Crea modelo de tabla vacio con el formato de LU-MATERIA
+	 * Crea modelo de tabla vacio con el formato de LU-MATERIA.
 	 * @return modelo de tabla vacia
 	 */
 	private DefaultTableModel getModelo() {

@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Program.Main;
+import Program.Logic;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -29,7 +29,7 @@ public class AgregarAlumno extends JDialog {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel;
 	private AdministrarMateria adminMateria;
-	private Main logica;
+	private Logic logica;
 
 	/**
 	 * Launch the application.
@@ -40,7 +40,7 @@ public class AgregarAlumno extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public AgregarAlumno(JFrame ventana,AdministrarMateria adminM, Main l, boolean modal) {
+	public AgregarAlumno(JFrame ventana,AdministrarMateria adminM, Logic l, boolean modal) {
 		super(ventana,modal);
 		logica = l;
 		setBounds(100, 100, 450, 300);

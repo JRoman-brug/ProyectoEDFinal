@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import Program.Main;
+import Program.Logic;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -29,7 +29,7 @@ public class IngresarMateria extends JPanel {
 
 	private JFrame ventana;
 	private JTextField textFieldMateria;
-	private Main logica;
+	private Logic logica;
 	private AdministrarMateria adminMateria;
 
 	//Formulario para entrar
@@ -153,7 +153,7 @@ public class IngresarMateria extends JPanel {
 				//Si el textField no esta vacio voy al siguiente panel
 				if(!materia.isEmpty()) {
 					//Creo el objeto main
-					logica = new Main(materia);
+					logica = new Logic(materia);
 					//Creo el panel adminitrarMateria
 					adminMateria = new AdministrarMateria(ventana, logica);
 					//Cambio el panel

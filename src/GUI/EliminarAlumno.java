@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EmptyBorder;
 
-import Program.Main;
+import Program.Logic;
 
 @SuppressWarnings("serial")
 public class EliminarAlumno extends JDialog {
@@ -26,7 +26,7 @@ public class EliminarAlumno extends JDialog {
 	private JTextField textField;
 	private JLabel lblNewLabel_1;
 	private AdministrarMateria adminMateria;
-	private Main logica;
+	private Logic logica;
 	
 	/**
 	 * Launch the application.
@@ -37,7 +37,7 @@ public class EliminarAlumno extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EliminarAlumno(JFrame ventana,AdministrarMateria adminM, Main l, boolean modal) {
+	public EliminarAlumno(JFrame ventana,AdministrarMateria adminM, Logic l, boolean modal) {
 		super(ventana,modal);
 		logica = l;
 		

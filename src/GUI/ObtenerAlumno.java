@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Program.Main;
+import Program.Logic;
 import Program.Par;
 
 import javax.swing.JLabel;
@@ -28,7 +28,7 @@ public class ObtenerAlumno extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textFieldLu;
 	private JLabel lblLu;
-	private Main logica;
+	private Logic logica;
 
 	/**
 	 * Launch the application.
@@ -39,7 +39,7 @@ public class ObtenerAlumno extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ObtenerAlumno(JFrame ventana,Main l, boolean modal) {
+	public ObtenerAlumno(JFrame ventana,Logic l, boolean modal) {
 		super(ventana,modal);
 		logica = l;
 		
@@ -119,7 +119,7 @@ public class ObtenerAlumno extends JDialog {
 				int lu = Integer.parseInt(textFieldLu.getText());
 				Par alumno = logica.obtenerAlumno(lu);
 				if(alumno != null){
-					JOptionPane.showMessageDialog(mensaje,"La nota de: "+textFieldLu.getText()+" es: "+alumno.getNota());
+					JOptionPane.showMessageDialog(mensaje,"La nota de "+textFieldLu.getText()+" es: "+alumno.getNota());
 				}else {
 					JOptionPane.showMessageDialog(mensaje,"No hay alumno registrado con ese LU");
 				}
