@@ -146,7 +146,7 @@ public class AgregarAlumno extends JDialog {
 						dispose();
 					}else {
 						//mensaje que el alumno no existe
-						JOptionPane.showMessageDialog(mensaje,"No hay alumno registrado con ese LU");
+						JOptionPane.showMessageDialog(mensaje,"Ya existe un alumno con LU: "+lu);
 					}
 				}else {
 					//Mensaje que ingrese una nota entre 1 y 10
