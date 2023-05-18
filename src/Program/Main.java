@@ -49,14 +49,6 @@ public class Main {
 	public String getMateria() {
 		return nomMateria;
 	}
-	
-	/**
-	 * Verifica si el registró esta vacío
-	 * @return si la lista vacia
-	 */
-	public boolean registroIsEmpty() {
-		return listaAlumnos.isEmpty();
-	}
 	/**
 	 * Retorna un alumno mediante su lu,
 	 * si no lo encuentra retorna null

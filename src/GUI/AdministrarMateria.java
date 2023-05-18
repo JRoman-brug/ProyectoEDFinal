@@ -49,14 +49,14 @@ public class AdministrarMateria extends JPanel {
 	private JPanel panelBotones = new JPanel();
 	private JPanel panelBotonesSuperior = new JPanel();
 	private JPanel panelBotonesInferior = new JPanel();
-	
-	
+
+
 	private JLabel lblPhoto = new JLabel("");
 	private JLabel lblPromedio = new JLabel("El promedio general es: 0");
 	private JLabel lblNotaMinima = new JLabel("La nota mínima es: 0");
 	private JLabel lblMateria = new JLabel("");
 	private JLabel lblFecha = new JLabel("");
-	
+
 	//Separadores parte de abajo donde va promedio
 	private Component horizontalStrut = Box.createHorizontalStrut(30);
 	private Component horizontalStrut_1 = Box.createHorizontalStrut(40);
@@ -65,7 +65,7 @@ public class AdministrarMateria extends JPanel {
 	private JScrollPane scrollPane = new JScrollPane();
 	private JTable table_1 = new JTable();
 	private DefaultTableModel modelo;
-	
+
 	//Botones
 	private JButton btnAlumnoNuevo = new JButton("Agregar alumno");
 	private JButton btnOrdenMayorMenor = new JButton("Ordenar mayor a menor");
@@ -128,14 +128,14 @@ public class AdministrarMateria extends JPanel {
 		gbl_panelCabecera.columnWeights = new double[]{1.0};
 		gbl_panelCabecera.rowWeights = new double[]{0.0, 0.0, 1.0};
 		panelCabecera.setLayout(gbl_panelCabecera);
-		
+
 		GridBagConstraints gbc_panelTitulos = new GridBagConstraints();
 		gbc_panelTitulos.insets = new Insets(0, 0, 5, 0);
 		gbc_panelTitulos.gridx = 0;
 		gbc_panelTitulos.gridy = 0;
 		panelCabecera.add(panelTitulos, gbc_panelTitulos);
 		panelTitulos.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+
 		JPanel panelTitulos2 = new JPanel();
 		panelTitulos2.setLayout(new BoxLayout(panelTitulos2, BoxLayout.Y_AXIS));
 
@@ -144,12 +144,12 @@ public class AdministrarMateria extends JPanel {
 		panelTitulos2.add(lblMateria);
 		lblMateria.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblMateria.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 30));
-		
+
 		//Label tiempo
 		Month mes = LocalDate.now().getMonth();
 		int anio = LocalDate.now().getYear();
 		int dia = LocalDate.now().getDayOfMonth();
-		
+
 		lblFecha.setText(dia+" "+mes+" "+anio+ " - Primer Cuatrimestre");
 		lblFecha.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panelTitulos2.add(lblFecha);
@@ -177,7 +177,7 @@ public class AdministrarMateria extends JPanel {
 
 		panelBotonesSuperior.add(btnAlumnosDesaprobados);
 		btnAlumnosDesaprobados.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		
+
 		FlowLayout fl_panelBotonesInferior = (FlowLayout) panelBotonesInferior.getLayout();
 		fl_panelBotonesInferior.setAlignment(FlowLayout.LEFT);
 
@@ -190,10 +190,10 @@ public class AdministrarMateria extends JPanel {
 
 		panelBotonesInferior.add(btnObtenerNota);
 		btnTablaOriginal.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		
+
 		panelBotonesInferior.add(btnTablaOriginal);
 		btnOrdenarNota.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		
+
 		panelBotonesInferior.add(btnOrdenarNota);
 
 		//Datos
@@ -213,24 +213,24 @@ public class AdministrarMateria extends JPanel {
 		table_1.setModel(modelo);
 		table_1.getTableHeader().setReorderingAllowed(false);
 		table_1.getTableHeader().setResizingAllowed(false);
-			
+
 		scrollPane.setViewportView(table_1);
 
 		scrollPane.setBounds(10, 38, 414, 212);
 		GroupLayout gl_panelTabla = new GroupLayout(panelTabla);
 		gl_panelTabla.setHorizontalGroup(
-			gl_panelTabla.createParallelGroup(Alignment.LEADING)
+				gl_panelTabla.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_panelTabla.createSequentialGroup()
-					.addContainerGap(22, Short.MAX_VALUE)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 688, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-		);
+						.addContainerGap(22, Short.MAX_VALUE)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 688, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap())
+				);
 		gl_panelTabla.setVerticalGroup(
-			gl_panelTabla.createParallelGroup(Alignment.LEADING)
+				gl_panelTabla.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelTabla.createSequentialGroup()
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
-					.addContainerGap())
-		);
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+						.addContainerGap())
+				);
 		panelTabla.setLayout(gl_panelTabla);
 
 
@@ -313,7 +313,7 @@ public class AdministrarMateria extends JPanel {
 				llamarVentanaPedirNotaFiltrar();
 			}
 		});
-		
+
 
 	}
 
@@ -332,13 +332,13 @@ public class AdministrarMateria extends JPanel {
 		ObtenerAlumno obtenerAlumno = new ObtenerAlumno(ventana,logica,true);
 		obtenerAlumno.setVisible(true);
 	}
-	
+
 	private void llamarVentanaPedirNotaFiltrar() {
 		PedirNotaFiltrar ordenarNotas = new PedirNotaFiltrar(ventana,this,true);
 		ordenarNotas.setVisible(true);
 	}
 	//Llamar a metodos del main
-	
+
 	/**
 	 * Borra y actualiza la tabla en caso de agregar o eliminar
 	 * @param la lista que se mostrara en la tabla
