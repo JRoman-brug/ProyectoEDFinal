@@ -15,8 +15,8 @@ public class Logic {
 	private PositionList<Par> listaAlumnos;
 
 	/**
-	 * Inicializa los atributos de un objeto Main asignando el nombre de la materia y 
-	 * creando una lista de alumnos vacia.
+	 * Inicializa la materia y 
+	 * crea una lista de alumnos vacia.
 	 * @param Nombre de la materia 
 	 */
 	public Logic(String materia) {
@@ -163,7 +163,7 @@ public class Logic {
 	}
 
 	/**
-	 * Utiliza una cola con prioridad para ordenar los datos y buscar la mínima nota,
+	 * Ordena los datos y busca la mínima nota,
 	 * si lista alumnos esta vacía retorna 0.
 	 * @return nota mínina 
 	 */
@@ -188,9 +188,9 @@ public class Logic {
 	}
 
 	/**
-	 * Agrega a todos los alumnos a una lista ordenada de mayor a menor,
+	 * Ordena a todos los alumnos a en una lista segun su nota,
 	 * si la lista de alumnos esta vacía retorna un lista vacía.
-	 * @return PositionList<Integer>
+	 * @return lista ordenada de mayor a menor
 	 */
 	private PositionList<Par> ordenarMayorMenor(){
 		PositionList<Par> toRet = new ListaDoblementeEnlazada<Par>();
@@ -247,7 +247,7 @@ public class Logic {
 		return toRet;
 	}
 
-	//Metodos para la tabla 
+	//Métodos para la tabla 
 	/**
 	 * Crea el modelo de una tabla con los elementos de la lista que se pasa por parámetro.
 	 * @param lista que se quiera imprimir en la tabla 
@@ -262,21 +262,18 @@ public class Logic {
 		return modelo;
 	}
 	/**
-	 * Retorna un modelo de tabla con todos los datos de la lista.
 	 * @return modelo con todos los alumnos
 	 */
 	public DefaultTableModel tablaOriginal() {
 		return actualizarTabla(listaAlumnos);
 	}
 	/**
-	 * Retorna un modelo de tabla con los alumnos aprobados.
 	 * @return modelo con alumnos aprobados
 	 */
 	public DefaultTableModel tablaAprobados() {
 		return actualizarTabla(alumnosAprobados());
 	}
 	/**
-	 * Retorna un modelo de tabla con los alumnos desaprobados.
 	 * @return modelo con todos los alumnos desaprobados
 	 */
 	public DefaultTableModel tablaDesaprobados() {
@@ -284,16 +281,14 @@ public class Logic {
 	}
 
 	/**
-	 * Retorna un modelo de tabla con todos los datos de la lista ordenadas.
 	 * @return modelo con todos los datos ordenados
 	 */
 	public DefaultTableModel tablaOrdenada() {
 		return actualizarTabla(ordenarMayorMenor());
 	}
 	/**
-	 * Retorna un modelo de tabla con todo los alumnos con la nota que se pasa por parámetro.
 	 * @param nota que se quiera filtrar
-	 * @return modelo con todos los alumnos con cierta nota
+	 * @return modelo con todos los alumnos con la misma nota
 	 */
 	public DefaultTableModel tablaPorNota(int nota) {
 		return actualizarTabla(buscarPorNota(nota));
