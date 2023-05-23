@@ -10,10 +10,15 @@ public class ListaDoblementeEnlazada<E> implements PositionList<E> {
     protected int size;
 
     public ListaDoblementeEnlazada() {
-        header = new Nodo<E>();
-        trailer = new Nodo<E>();
+        header = new Nodo<E>(null);
+        trailer = new Nodo<E>(null);
+        
         header.setSiguiente(trailer);
-        trailer.setAnterior(trailer);
+        header.setAnterior(null);
+        
+        trailer.setSiguiente(null);
+        trailer.setAnterior(header);
+        
         size = 0;
     }
 
@@ -137,7 +142,7 @@ public class ListaDoblementeEnlazada<E> implements PositionList<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new ElementIterator<>(this);
+        return new ElementIterator<E>(this);
     }
 
     @Override
@@ -150,7 +155,13 @@ public class ListaDoblementeEnlazada<E> implements PositionList<E> {
         }
         return toReturn;
     }
-
+    
+    /**
+     * Verifica que sea una posición válida.
+     * @param p
+     * @return
+     * @throws InvalidPositionException
+     */
     private Nodo<E> checkPosition(Position<E> p) throws InvalidPositionException {
         try {
             if( p == null )
@@ -171,10 +182,7 @@ public class ListaDoblementeEnlazada<E> implements PositionList<E> {
     }
 
     /**
-     * Clase Nodo anidada, permite evitar modificar la lista mediante casting
-     * explicito desde la clase cliente.
-     * Cliente no debe conocer como funciona la estructura, solamente debe saber
-     * que hace.
+     * Clase Nodo anidada, permite evitar modificar la lista mediante casting.
      * @param <E> generico.
      */
     private class Nodo<E> implements Position<E> {
@@ -187,35 +195,52 @@ public class ListaDoblementeEnlazada<E> implements PositionList<E> {
             this.anterior = anterior;
             this.siguiente = siguiente;
         }
-
+        
         public Nodo(E element) {
             this(element, null, null);
         }
-
-        public Nodo() {
-            this(null, null, null);
-        }
-
+        
+        /**
+         * @return elemento del nodo
+         */
         public E element() {
             return element;
         }
-
+        
+        /**
+         * Asigna un elemento al nodo.
+         * @param element
+         */
         public void setElement(E element) {
             this.element = element;
         }
-
+        
+        /**
+         * @return el nodo siguiente
+         */
         public Nodo<E> getSiguiente() {
             return siguiente;
         }
-
+        
+        /**
+         * Asigna el nodo pasado como parametro como nodo siguiente.
+         * @param siguiente
+         */
         public void setSiguiente(Nodo<E> siguiente) {
             this.siguiente = siguiente;
         }
-
+        
+        /**
+         * @return el nodo anterior 
+         */
         public Nodo<E> getAnterior() {
             return anterior;
         }
-
+        
+        /**
+         * Asigna el nodo pasado como parametro como nodo anterior.
+         * @param anterior
+         */
         public void setAnterior(Nodo<E> anterior) {
             this.anterior = anterior;
         }

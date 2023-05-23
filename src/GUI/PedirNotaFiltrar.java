@@ -109,11 +109,15 @@ public class PedirNotaFiltrar extends JDialog {
 			try {
 				
 				int nota = Integer.parseInt(textFieldNota.getText());
-				
-				adminMateria.filtrarNota(nota);
-				dispose();
+				if(nota <=10 && nota >= 1) {
+					adminMateria.filtrarNota(nota);
+					dispose();
+				}else {
+					//mensaje que el alumno no existe
+					JOptionPane.showMessageDialog(mensaje,"Ingrese una nota entre 1 y 10");
+				}
 			}catch(NumberFormatException e) {
-				JOptionPane.showMessageDialog(mensaje,"Ingrese un dato valido");
+				JOptionPane.showMessageDialog(mensaje,"Ingrese un número entero");
 			}
 			
 		}else {

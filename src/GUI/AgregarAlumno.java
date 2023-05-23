@@ -155,7 +155,7 @@ public class AgregarAlumno extends JDialog {
 				
 			}catch(NumberFormatException e) {
 				//Mensaje que en el caso que ingreso un string
-				JOptionPane.showMessageDialog(mensaje,"Ingrese un dato valido");
+				JOptionPane.showMessageDialog(mensaje,"Ingrese un número entero");
 			}
 		}else {
 			//Mensaje que los textFields esten vacíos
