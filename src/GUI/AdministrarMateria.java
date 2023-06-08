@@ -6,6 +6,8 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 import Program.Logic;
+import Program.Par;
+import TDALista.PositionList;
 
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -209,7 +211,8 @@ public class AdministrarMateria extends JPanel {
 		table_1.setBounds(10,38,400,200);
 
 		//Setup del modelo de la tabla
-		modelo = logica.tablaOriginal();
+		modelo = getModelo();
+		actualizarTablaOriginal();
 		table_1.setModel(modelo);
 		table_1.getTableHeader().setReorderingAllowed(false);
 		table_1.getTableHeader().setResizingAllowed(false);
@@ -304,7 +307,7 @@ public class AdministrarMateria extends JPanel {
 		//Muestra la tabla con todos los alumnos y sus notas
 		btnTablaOriginal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				actualizarTabla();
+				actualizarTablaOriginal();
 			}
 		});
 		//Filtrar por nota
@@ -343,37 +346,53 @@ public class AdministrarMateria extends JPanel {
 	 * Borra y actualiza la tabla en caso de agregar o eliminar
 	 * @param la lista que se mostrara en la tabla
 	 */
-	private void actualizarTabla() {
-		//Reseteo la tabla
-		table_1.setModel(logica.tablaOriginal());
+	private void actualizarTablaOriginal() {
+		actualizarTabla(logica.getRegistro());
 	}
 	private void actualizarPromedioNotaMinima() {
 		lblPromedio.setText("El promedio general es: "+logica.calcularPromedio());
 		lblNotaMinima.setText("La nota mínima es: "+logica.notaMinima());
 	}
 	public void actualizarDatos() {
-		actualizarTabla();
+		actualizarTablaOriginal();
 		actualizarPromedioNotaMinima();
 	}
-	/**
-	 * Filtra la tabla por aprobados
-	 */
 	private void aprobados() {
 		//Obtengo el registro de alumnos
-		table_1.setModel(logica.tablaAprobados());
+		actualizarTabla(logica.alumnosAprobados());
 	}
-	/**
-	 * Filtra la tabla por aprobados
-	 */
+
 	private void desaprobados() {
 		//Obtengo el registro de alumnos
-		table_1.setModel(logica.tablaDesaprobados());
+		actualizarTabla(logica.alumnosDesaprobados());
 	}
 	private void ordenarMayorMenor() {
-		table_1.setModel(logica.tablaOrdenada());
+		actualizarTabla(logica.ordenarMayorMenor());
 	}
 
 	public void filtrarNota(int nota) {
-		table_1.setModel(logica.tablaPorNota(nota));
+		actualizarTabla(logica.buscarPorNota(nota));
+	}
+	
+	
+	private void actualizarTabla(Iterable<Par> lista) {
+		//Reseteo la tabla
+		modelo = getModelo();
+		for(Par elem: lista) {
+			modelo.addRow(new Object[] {elem.getLu(),elem.getNota()});
+		}
+		table_1.setModel(modelo);
+	}
+	
+	private DefaultTableModel getModelo() {
+		//Reseteo la tabla
+		DefaultTableModel toReturn = new DefaultTableModel(0,0) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		String[] columnsName = new String[] {"LU","Nota"};
+		toReturn.setColumnIdentifiers(columnsName);
+		return toReturn;
 	}
 }

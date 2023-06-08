@@ -51,6 +51,12 @@ public class Logic {
 	}
 	
 	/**
+	 * @return Iterable de Par.
+	 */
+	public Iterable<Par> getRegistro(){
+		return listaAlumnos;
+	}
+	/**
 	 * Verifica si el registro esta vacío.
 	 * @return si la lista vacía
 	 */
@@ -133,9 +139,9 @@ public class Logic {
 	}
 
 	/**
-	 * Busca y agrega a una lista a todos alumnos con notas mayores o igual a 6,
-	 * si la lista de alumnos esta vacía retorna una lista vacía.
-	 * @return lista de Lu's
+	 * Busca y agrega a un Iterable de Par a todos alumnos con notas mayores o igual a 6,
+	 * si la lista de alumnos esta vacía retorna un Iterable vacío.
+	 * @return Iterable de Par, Lu's y notas.
 	 */
 	public Iterable<Par> alumnosAprobados() {
 		PositionList<Par> alumnosAprobados = new ListaDoblementeEnlazada<Par>();
@@ -148,9 +154,9 @@ public class Logic {
 	}
 
 	/**
-	 * Busca y agrega a una lista a todos los alumnos con notas menores a 6,
-	 * si la lisa de alumnos esta vacía retorna una lista vacía.
-	 * @return lista de Lu's
+	 * Busca y agrega a un Iterable a todos los alumnos con notas menores a 6,
+	 * si la lista de alumnos esta vacía retorna un Iterable vacío.
+	 * @return Iterable de par, de Lu's y nota.
 	 */
 	public Iterable<Par> alumnosDesaprobados(){
 		PositionList<Par> alumnosDesprobados = new ListaDoblementeEnlazada<Par>();
@@ -169,7 +175,7 @@ public class Logic {
 	 */
 	public int notaMinima() {
 		int toRet = 0;
-		PriorityQueue<Integer,Integer> cola = new Heap<Integer,Integer>(listaAlumnos.size(), new ComparadorNota<Integer>());
+		PriorityQueue<Integer,Integer> cola = new Heap<Integer,Integer>(listaAlumnos.size(), new Comparador<Integer>());
 		if(!listaAlumnos.isEmpty()) {
 			for (Par alumno : listaAlumnos) {
 				try {
@@ -188,9 +194,9 @@ public class Logic {
 	}
 
 	/**
-	 * Ordena a todos los alumnos a en una lista segun su nota,
-	 * si la lista de alumnos esta vacía retorna un lista vacía.
-	 * @return lista ordenada de mayor a menor
+	 * Ordena a todos los alumnos a en un Iterable segun su nota,
+	 * si la lista de alumnos esta vacía retorna un Iterable vacío.
+	 * @return Iterable de par, de Lu's y notas ordenada de mayor a menor
 	 */
 	public Iterable<Par> ordenarMayorMenor(){
 		PositionList<Par> toRet = new ListaDoblementeEnlazada<Par>();
@@ -219,10 +225,10 @@ public class Logic {
 	}
 
 	/**
-	 * Busca y agrega a una lista a todos los alumnos con nota 'n',
-	 * si no hay alumnos con nota 'n' retorna una lita vacía.
+	 * Busca y agrega a un Iterable a todos los alumnos con nota 'n',
+	 * si no hay alumnos con nota 'n' retorna una Iterable vacío.
 	 * @param nota
-	 * @return lista con alumnos con nota 'n'
+	 * @return Iterable de Par, con alumnos con nota 'n'
 	 */
 	public Iterable<Par> buscarPorNota(int n){
 		PositionList<Par> toRet = new ListaDoblementeEnlazada<Par>();
@@ -247,66 +253,6 @@ public class Logic {
 		return toRet;
 	}
 
-	//Métodos para la tabla 
-	/**
-	 * Crea el modelo de una tabla con los elementos de la lista que se pasa por parámetro.
-	 * @param lista que se quiera imprimir en la tabla 
-	 * @return modelo de tabla con los datos de lista
-	 */
-	private DefaultTableModel actualizarTabla(PositionList<Par> lista) {
-		//Reseteo la tabla
-		DefaultTableModel modelo = getModelo();
-		for(Par elem:lista) {
-			modelo.addRow(new Object[] {elem.getLu(),elem.getNota()});
-		}
-		return modelo;
-	}
-	/**
-	 * @return modelo con todos los alumnos
-	 */
-	public DefaultTableModel tablaOriginal() {
-		return actualizarTabla(listaAlumnos);
-	}
-	/**
-	 * @return modelo con alumnos aprobados
-	 */
-	public DefaultTableModel tablaAprobados() {
-		return actualizarTabla(alumnosAprobados());
-	}
-	/**
-	 * @return modelo con todos los alumnos desaprobados
-	 */
-	public DefaultTableModel tablaDesaprobados() {
-		return actualizarTabla(alumnosDesaprobados());
-	}
-
-	/**
-	 * @return modelo con todos los datos ordenados
-	 */
-	public DefaultTableModel tablaOrdenada() {
-		return actualizarTabla(ordenarMayorMenor());
-	}
-	/**
-	 * @param nota que se quiera filtrar
-	 * @return modelo con todos los alumnos con la misma nota
-	 */
-	public DefaultTableModel tablaPorNota(int nota) {
-		return actualizarTabla(buscarPorNota(nota));
-	}
-	/**
-	 * Crea modelo de tabla vacio con el formato de LU-MATERIA.
-	 * @return modelo de tabla vacía
-	 */
-	private DefaultTableModel getModelo() {
-		//Reseteo la tabla
-		@SuppressWarnings("serial")
-		DefaultTableModel toReturn = new DefaultTableModel(0,0) {
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-		String[] columnsName = new String[] {"LU","Nota"};
-		toReturn.setColumnIdentifiers(columnsName);
-		return toReturn;
-	}
+	
+	
 }
