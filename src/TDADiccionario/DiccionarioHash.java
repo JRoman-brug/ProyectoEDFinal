@@ -7,17 +7,20 @@ import Exceptions.*;
 import TDALista.*;
 
 public class DiccionarioHash<K,V> implements Dictionary<K,V> {
-    protected PositionList<Entrada<K,V>>[] buckets ;
+    protected PositionList<Entry<K,V>>[] buckets ;
     protected int size;
     protected int N;
     protected static final float factor = 0.5f;
-
+    
+    /**
+     * Crea un diccionario con hash.
+     */
     public DiccionarioHash() {
         N=11;
         size = 0;
         buckets = new ListaDoblementeEnlazada[N];
         for(int i=0;i<N;i++) {
-			buckets[i]=new ListaDoblementeEnlazada<Entrada<K,V>>();
+			buckets[i]=new ListaDoblementeEnlazada<Entry<K,V>>();
 		}
     }
 
@@ -35,7 +38,7 @@ public class DiccionarioHash<K,V> implements Dictionary<K,V> {
     public Entry<K,V> find(K key) throws InvalidKeyException {
         checkKey(key);
         Entry<K,V> toRet = null;
-        Iterator<Entrada<K,V>> it = buckets[hashThisKey(key)].iterator();
+        Iterator<Entry<K,V>> it = buckets[hashThisKey(key)].iterator();
         Entry<K,V> e = null;
         boolean flag = false;
         while(it.hasNext() && !flag) {
@@ -52,7 +55,7 @@ public class DiccionarioHash<K,V> implements Dictionary<K,V> {
     public Iterable<Entry<K, V>> findAll(K key) throws InvalidKeyException {
     	checkKey(key);
         PositionList<Entry<K,V>> toRet = new ListaDoblementeEnlazada<Entry<K,V>>();
-        for(Entrada<K,V> e : buckets[hashThisKey(key)]) {
+        for(Entry<K,V> e : buckets[hashThisKey(key)]) {
     	   if(e.getKey().equals(key)) {
     		   toRet.addLast(e);
     	   }
@@ -64,7 +67,7 @@ public class DiccionarioHash<K,V> implements Dictionary<K,V> {
     public Entry<K,V> insert(K key, V value) throws InvalidKeyException {
     	checkKey(key);
         Entry<K,V> toRet = new Entrada<K,V>(key,value);
-        buckets[hashThisKey(key)].addLast((Entrada<K, V>) toRet);
+        buckets[hashThisKey(key)].addLast(toRet);
         size++;
 		if(size / N >= factor){
             reHash();
@@ -77,9 +80,9 @@ public class DiccionarioHash<K,V> implements Dictionary<K,V> {
     	if(e == null)throw new InvalidEntryException("Entrada nula.");
     	int i = hashThisKey(e.getKey());
         Entry<K,V> toRet = null;
-        Iterable<Position<Entrada<K, V>>> pos = buckets[i].positions();	
-        Iterator<Position<Entrada<K,V>>> it = pos.iterator();
-		Position<Entrada<K,V>> aux = null;
+        Iterable<Position<Entry<K, V>>> pos = buckets[i].positions();	
+        Iterator<Position<Entry<K,V>>> it = pos.iterator();
+		Position<Entry<K,V>> aux = null;
 		boolean encontre =false;
 		while(it.hasNext() && !encontre) {
 			aux = it.next();
@@ -100,8 +103,8 @@ public class DiccionarioHash<K,V> implements Dictionary<K,V> {
     @Override
     public Iterable<Entry<K,V>> entries() {
     	PositionList<Entry<K,V>> entries = new ListaDoblementeEnlazada<Entry<K,V>>();
-        for(PositionList<Entrada<K, V>> l : buckets){
-        	for(Position<Entrada<K, V>> p : l.positions()) {
+        for(PositionList<Entry<K, V>> l : buckets){
+        	for(Position<Entry<K, V>> p : l.positions()) {
         		entries.addLast(p.element());
         	}
         }
@@ -109,7 +112,7 @@ public class DiccionarioHash<K,V> implements Dictionary<K,V> {
     }
     
     /**
-     * Amplia el diccionario si se supera el factor de carga
+     * Amplia el diccionario si se supera el factor de carga.
      */
     private void reHash(){
     	Iterable<Entry<K, V>> entradas = entries();
@@ -117,7 +120,7 @@ public class DiccionarioHash<K,V> implements Dictionary<K,V> {
     	size=0;
         buckets = new ListaDoblementeEnlazada[N];
         for(int i=0;i<N;i++) {
-			buckets[i]=new ListaDoblementeEnlazada<Entrada<K,V>>();
+			buckets[i]=new ListaDoblementeEnlazada<Entry<K,V>>();
 		}
         for(Entry<K,V> e : entradas) {
         	try {

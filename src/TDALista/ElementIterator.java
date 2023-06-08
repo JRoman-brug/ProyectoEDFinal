@@ -5,10 +5,13 @@ import java.util.*;
 import Exceptions.*;
 
 public class ElementIterator<E> implements Iterator<E> {
-
 	protected PositionList<E> list;
 	protected Position<E> cursor;
-
+	
+	/**
+	 * Crea un elemento iterador.
+	 * @param lista para iterar
+	 */
 	public ElementIterator(PositionList<E> l) {
 		list = l; 
 		if (list.isEmpty())
@@ -20,11 +23,17 @@ public class ElementIterator<E> implements Iterator<E> {
 				e.printStackTrace();
 			}
 	}
-
+	
+	/**
+	 * @return si tiene o no siguiente elemento.
+	 */
 	public boolean hasNext() {
 		return cursor != null;
 	}
-
+	
+	/**
+	 * @return el siguiente elemento del iterador.
+	 */
 	public E next() throws NoSuchElementException {
 		if (cursor == null)
 			throw new NoSuchElementException("Error: No hay siguiente");

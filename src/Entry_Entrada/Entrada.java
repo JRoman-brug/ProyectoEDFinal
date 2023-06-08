@@ -4,7 +4,7 @@ public class Entrada<K,V> implements Entry<K,V> {
     protected K key;
     protected V value;
     /**
-	 * Crea una entrada
+	 * Crea una entrada.
 	 * @param clave Es la clave de la entrada.
 	 * @param valor	Es el valor de la entrada.
 	 */
@@ -36,7 +36,7 @@ public class Entrada<K,V> implements Entry<K,V> {
         this.value = value;
     }
     /**
-	 * devuelve un string con los atributos del mapeo.
+	 * Se devuelve un string con los atributos del mapeo.
 	 */
     public String toString() {
         return "{"+getKey()+","+getValue()+"}";

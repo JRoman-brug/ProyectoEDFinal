@@ -2,13 +2,11 @@ package Entry_Entrada;
 
 public interface Entry<K,V> {
 	/**
-	 * regunta cual es la clave de la entrada.
-	 * @return La entrada.
+	 * @return la clave.
 	 */
     public K getKey();
     /**
-	 * pregunta cual es el valor de la entrada. 
-	 * @return El valor.
+	 * @return el valor.
 	 */
     public V getValue();
 }

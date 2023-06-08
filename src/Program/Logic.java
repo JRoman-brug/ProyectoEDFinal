@@ -16,7 +16,7 @@ public class Logic {
 
 	/**
 	 * Inicializa la materia y 
-	 * crea una lista de alumnos vacia.
+	 * crea una lista de alumnos vacía.
 	 * @param Nombre de la materia 
 	 */
 	public Logic(String materia) {
@@ -52,7 +52,7 @@ public class Logic {
 	
 	/**
 	 * Verifica si el registro esta vacío.
-	 * @return si la lista vacia
+	 * @return si la lista vacía
 	 */
 	public boolean registroIsEmpty() {
 		return listaAlumnos.isEmpty();
@@ -134,10 +134,10 @@ public class Logic {
 
 	/**
 	 * Busca y agrega a una lista a todos alumnos con notas mayores o igual a 6,
-	 * si la lista de alumnos esta vacia retorna una lista vacia.
+	 * si la lista de alumnos esta vacía retorna una lista vacía.
 	 * @return lista de Lu's
 	 */
-	private PositionList<Par> alumnosAprobados() {
+	public Iterable<Par> alumnosAprobados() {
 		PositionList<Par> alumnosAprobados = new ListaDoblementeEnlazada<Par>();
 		if(!listaAlumnos.isEmpty()) {
 			for(Par alumno : listaAlumnos) {
@@ -149,10 +149,10 @@ public class Logic {
 
 	/**
 	 * Busca y agrega a una lista a todos los alumnos con notas menores a 6,
-	 * si la lisa de alumnos esta vacia retorna una lista vacia.
+	 * si la lisa de alumnos esta vacía retorna una lista vacía.
 	 * @return lista de Lu's
 	 */
-	private PositionList<Par> alumnosDesaprobados(){
+	public Iterable<Par> alumnosDesaprobados(){
 		PositionList<Par> alumnosDesprobados = new ListaDoblementeEnlazada<Par>();
 		if(!listaAlumnos.isEmpty()) {
 			for(Par alumno : listaAlumnos) {
@@ -192,7 +192,7 @@ public class Logic {
 	 * si la lista de alumnos esta vacía retorna un lista vacía.
 	 * @return lista ordenada de mayor a menor
 	 */
-	private PositionList<Par> ordenarMayorMenor(){
+	public Iterable<Par> ordenarMayorMenor(){
 		PositionList<Par> toRet = new ListaDoblementeEnlazada<Par>();
 		if(!listaAlumnos.isEmpty()) {
 			int sizeListaAlumnos = listaAlumnos.size();
@@ -209,7 +209,7 @@ public class Logic {
 				try {
 					e = colaCP.removeMin();
 					Par alumno = new Par(e.getValue(),e.getKey());
-					toRet.addFirst(alumno);
+					toRet.addLast(alumno);
 				} catch (EmptyPriorityQueueException e1) {
 					e1.printStackTrace();
 				}
@@ -224,7 +224,7 @@ public class Logic {
 	 * @param nota
 	 * @return lista con alumnos con nota 'n'
 	 */
-	private PositionList<Par> buscarPorNota(int n){
+	public Iterable<Par> buscarPorNota(int n){
 		PositionList<Par> toRet = new ListaDoblementeEnlazada<Par>();
 		if(!listaAlumnos.isEmpty()) {
 			Dictionary<Integer,Integer> dic = new DiccionarioHash<Integer,Integer>();
@@ -295,7 +295,7 @@ public class Logic {
 	}
 	/**
 	 * Crea modelo de tabla vacio con el formato de LU-MATERIA.
-	 * @return modelo de tabla vacia
+	 * @return modelo de tabla vacía
 	 */
 	private DefaultTableModel getModelo() {
 		//Reseteo la tabla

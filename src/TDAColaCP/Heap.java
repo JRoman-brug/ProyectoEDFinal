@@ -6,40 +6,53 @@ import Entry_Entrada.*;
 import Exceptions.*;
 
 public class Heap<K,V> implements PriorityQueue<K,V> {
-    protected Entrada<K,V> [] elems;
-    protected int size;
-    protected Comparator<K> comp;
+	protected Entrada<K,V> [] elems;
+	protected int size;
+	protected Comparator<K> comp;
+	
+	/**
+	 * Crea una cola con prioridad de 'n' elementos.
+	 * @param n
+	 * @param comp
+	 */
+	public Heap(int n, Comparator<K> comp) {
+		elems = (Entrada<K, V> []) new Entrada[n];
+		size = 0;
+		this.comp = comp;
+	}
+	
+	/**
+	 * Crea una cola con prioridad.
+	 * @param comp
+	 */
+	public Heap(Comparator<K> comp) {
+		this(20,comp);
+	}
 
-    public Heap(int maxElems, Comparator<K> comp) {
-        elems = (Entrada<K, V> []) new Entrada[maxElems];
-        size = 0;
-        this.comp = comp;
-    }
+	@Override
+	public int size() {
+		return size;
+	}
 
-    @Override
-    public int size() {
-        return size;
-    }
+	@Override
+	public boolean isEmpty() {
+		return size == 0;
+	}
 
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
+	@Override
+	public Entry<K, V> min() throws EmptyPriorityQueueException {
+		if(isEmpty()){
+			throw new EmptyPriorityQueueException("Cola vacia.");
+		}
+		return elems[1];
+	}
 
-    @Override
-    public Entry<K, V> min() throws EmptyPriorityQueueException {
-        if(isEmpty()){
-            throw new EmptyPriorityQueueException("Cola vacia.");
-        }
-        return elems[1];
-    }
-
-    @Override
-    public Entry<K, V> insert(K key, V value) throws InvalidKeyException {
-    	checkKey(key);
+	@Override
+	public Entry<K, V> insert(K key, V value) throws InvalidKeyException {
+		checkKey(key);
 		if(size >= elems.length-1){
-            reSize();
-        }
+			reSize();
+		}
 		Entrada<K,V> entrada = new Entrada<K,V>(key, value); 
 		elems[++size] = entrada; 
 		int i = size;
@@ -55,60 +68,65 @@ public class Heap<K,V> implements PriorityQueue<K,V> {
 			} else
 				seguir = false;
 		}
-        
-        return entrada;
-    }
 
-    @Override
-    public Entry<K, V> removeMin() throws EmptyPriorityQueueException {
-        if(isEmpty()) {
-            throw new EmptyPriorityQueueException("Cola vacia.");
-        }
-        Entry<K,V> entrada = min();
-        int m = 0;
-        if( size == 1 ) { 
-        	elems[1] = null; size = 0; return entrada; 
-        } else {
-        	elems[1] = elems[size]; elems[size] = null; size--;
-	        int i = 1;
-	        boolean seguir = true;
-	        while ( seguir ) {
-	        	int hi = i*2; 
-	        	int hd = i*2+1;
-	        	boolean tieneHijoIzquierdo = hi <= size(); 
-	        	boolean tieneHijoDerecho = hd <= size();
-	        	if( !tieneHijoIzquierdo ) {
-	        		seguir = false;
-	        	} else {
-	        		if( tieneHijoDerecho ) {
-	        			if( comp.compare( elems[hi].getKey(), elems[hd].getKey()) < 0 ) m = hi;
-	        			else m = hd;
-	        		} else m = hi;
-	        	}
-        		if(m!= 0 && comp.compare(elems[i].getKey(), elems[m].getKey()) > 0 ) {
-	        		Entrada<K,V> aux = elems[i];
-	        		elems[i] = elems[m];
-	        		elems[m] = aux;
-	        		i = m;
-        		} else seguir = false;
-	        }
-	        return entrada;
-        }
-        
-    }
+		return entrada;
+	}
 
-    private void reSize() {
-        Entrada<K,V> [] arr = (Entrada<K, V> []) new Entrada[elems.length*2];
-        int i = 0;
-        for(Entrada<K,V> e : elems){
-            arr[i++]= e;
-        }
-        elems = arr;
-    }
+	@Override
+	public Entry<K, V> removeMin() throws EmptyPriorityQueueException {
+		if(isEmpty()) {
+			throw new EmptyPriorityQueueException("Cola vacia.");
+		}
+		Entry<K,V> entrada = min();
+		int m = 0;
+		if( size == 1 ) { 
+			elems[1] = null; size = 0; return entrada; 
+		} else {
+			elems[1] = elems[size]; elems[size] = null; size--;
+			int i = 1;
+			boolean seguir = true;
+			while ( seguir ) {
+				int hi = i*2; 
+				int hd = i*2+1;
+				boolean tieneHijoIzquierdo = hi <= size(); 
+				boolean tieneHijoDerecho = hd <= size();
+				if( !tieneHijoIzquierdo ) {
+					seguir = false;
+				} else {
+					if( tieneHijoDerecho ) {
+						if( comp.compare( elems[hi].getKey(), elems[hd].getKey()) < 0 ) m = hi;
+						else m = hd;
+					} else m = hi;
+				}
+				if(m!= 0 && comp.compare(elems[i].getKey(), elems[m].getKey()) > 0 ) {
+					Entrada<K,V> aux = elems[i];
+					elems[i] = elems[m];
+					elems[m] = aux;
+					i = m;
+				} else seguir = false;
+			}
+			return entrada;
+		}
 
-    private void checkKey(K key) throws InvalidKeyException {
-        if(key == null) {
-            throw new InvalidKeyException("Clave incorrecta.");
-        }
-    }
+	}
+	/**
+	 * Agranda el arreglo si se llena.
+	 */
+	private void reSize() {
+		Entrada<K,V> [] arr = (Entrada<K, V> []) new Entrada[elems.length*2];
+		int i = 0;
+		for(Entrada<K,V> e : elems){
+			arr[i++]= e;
+		}
+		elems = arr;
+	}
+	
+	/**
+	 * Revisa que la clave no sea nula.
+	 * @param key
+	 * @throws InvalidKeyException
+	 */
+	private void checkKey(K key) throws InvalidKeyException {
+		if(key == null) throw new InvalidKeyException("Clave incorrecta.");
+	}
 }
